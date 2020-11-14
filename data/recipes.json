@@ -1,0 +1,22 @@
+{
+    "recipes": [
+        {
+          "id": 1,
+          "recipe_name": "Neapolitan Spaghetti",
+          "preparation_time": "1 hour",
+          "type": "Main Course"
+        },
+        {
+            "id": 2,
+            "recipe_name": "Chicken Sticks",
+            "preparation_time": "10 min",
+            "type": "Inlet Plate"
+        },
+        {
+            "id": 3,
+            "recipe_name": "Lemon Dessert",
+            "preparation_time": "1 and a half hour",
+            "type": "Dessert Plate"
+        }
+    ]
+}
