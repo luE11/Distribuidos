@@ -13,6 +13,17 @@ app.get('/cars/:model', (req, res) => {
   var data = readCars(mod)
   res.send(data)
 })
+
+app.get('/sitesworld/:continent', (req, res) => {
+  var data = readSitesWorld(req.params.continent)
+  res.send(data)
+})
+
+app.get('/sitesworld', (req, res) => {
+  var data = readSitesInWolrd()
+  res.send(data)
+})
+
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`)
 })
@@ -45,4 +56,40 @@ function readCars(mod){
    }
   }
   return dataCars;
+}
+
+function readSitesWorld(continent){
+  let json = require('./data/sitesworld.json')
+  let jsonArray = json.SitesWorld
+  var sites = ' '
+  var existContinent = false
+  for (let j = 0; j < jsonArray.length; j++) {
+    if(continent == jsonArray[j].Continent){
+      existContinent = true
+      break
+    }
+  }
+  if(existContinent){
+    sites += 'Sites in: ' + continent + '\n'
+    for (let i = 0; i < jsonArray.length; i++) {
+        if(continent == jsonArray[i].Continent){
+          sites += 'Id_site: ' + jsonArray[i].id_site + ', Continent: ' + jsonArray[i].Continent + ', Country: ' + jsonArray[i].country
+                    +', Capital: ' + jsonArray[i].Capital + '\n'
+        }
+    }
+  }else{
+    sites += 'there is no registration with the continent ' + continent
+  }
+  return sites;
+}
+
+function readSitesInWolrd(){
+  let json = require('./data/sitesworld.json')
+  let jsonArray = json.SitesWorld
+  var sites = 'The sites in world are: ' + jsonArray.length + '\n' 
+  for (let i = 0; i < jsonArray.length; i++) {
+    sites += i+1 + '). Id_site: ' + jsonArray[i].id_site + ', Continent: ' + jsonArray[i].Continent + ', Country: ' + jsonArray[i].country
+    +', Capital: ' + jsonArray[i].Capital + '\n'
+  }
+  return sites
 }
