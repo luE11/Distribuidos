@@ -8,6 +8,11 @@ app.get('/recipes', (req, res) => {
   res.send(data)
 })
 
+app.get('/cars/:model', (req, res) => {
+  var mod = req.params.model
+  var data = readCars(mod)
+  res.send(data)
+})
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`)
 })
@@ -19,11 +24,25 @@ app.listen(port, () => {
 function readRecipes(){
   let json = require('./data/recipes.json')
   let jsonArray = json.recipes
-  var dataRec = 'Recipe List :)</br>'
+  var dataRec = 'Recipe List :\n'
   for (let i = 0; i < jsonArray.length; i++) {
     dataRec+='Id: '+jsonArray[i].id+' Recipe Name: '+jsonArray[i].recipe_name
               +' Preparation Time: '+jsonArray[i].preparation_time+' Type: '
-                  +jsonArray[i].preparation_time+((i<jsonArray.length-1)?'</br>':'')
+                  +jsonArray[i].preparation_time+((i<jsonArray.length-1)?'\n':'')
   }
   return dataRec;
+}
+
+function readCars(mod){
+  let json = require('./data/cars.json')
+  let jsonArray = json.cars
+  var dataCars = 'Cars List :\n'
+  for (let i = 0; i < jsonArray.length; i++) {
+  if(mod == jsonArray[i].model){
+    dataCars+='Id: '+jsonArray[i].id+' Brand: '+jsonArray[i].brand_name
+              +' Line: '+jsonArray[i].line_name+' Model: '
+                  +jsonArray[i].model+((i<jsonArray.length-1)?'\n':'')
+   }
+  }
+  return dataCars;
 }
